@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import { save } from "@tauri-apps/plugin-dialog";
 import { Download } from "lucide-react";
 import { Button } from "../ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
 import { ScreenHeader } from "../layout/ScreenHeader";
 import { useUIStore } from "../../store";
 import { formatDuration } from "../../lib/utils";
@@ -44,13 +39,12 @@ export function TimeLogScreen() {
     });
   };
 
-  const handleExport = () => {
+  const handleExport = async () => {
     if (!timeLog) return;
 
-    const headers = ["Date", "Duration (seconds)", "Duration", "Start Time", "End Time"];
+    const headers = ["Date", "Duration", "Start Time", "End Time"];
     const rows = timeLog.sessions.map((session) => [
       session.date,
-      session.durationSeconds.toString(),
       formatDuration(session.durationSeconds),
       session.startTime,
       session.endTime || "",
@@ -61,18 +55,18 @@ export function TimeLogScreen() {
       ...rows.map((row) => row.map((cell) => `"${cell}"`).join(",")),
     ].join("\n");
 
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    const url = URL.createObjectURL(blob);
-    link.setAttribute("href", url);
-    link.setAttribute(
-      "download",
-      `time-log-${timeLogCustomerName?.toLowerCase().replace(/\s+/g, "-")}.csv`
-    );
-    link.style.visibility = "hidden";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    try {
+      const filePath = await save({
+        defaultPath: `time-log-${timeLogCustomerName?.toLowerCase().replace(/\s+/g, "-")}.csv`,
+        filters: [{ name: "CSV", extensions: ["csv"] }],
+      });
+
+      if (filePath) {
+        await invoke("export_csv", { filePath, content: csvContent });
+      }
+    } catch (error) {
+      console.error("Failed to export CSV:", error);
+    }
   };
 
   const sortedSessions = timeLog?.sessions
@@ -145,26 +139,17 @@ export function TimeLogScreen() {
             </div>
 
             {/* Export Button */}
-            <TooltipProvider>
-              <div className="flex justify-center">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="h-7 px-3 text-xs"
-                      onClick={handleExport}
-                    >
-                      <Download className="w-3 h-3 mr-1.5" />
-                      Export CSV
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom">
-                    <p>Download as CSV file</p>
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-            </TooltipProvider>
+            <div className="flex justify-center">
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-7 px-3 text-xs"
+                onClick={handleExport}
+              >
+                <Download className="w-3 h-3 mr-1.5" />
+                Export CSV
+              </Button>
+            </div>
           </div>
         </>
       ) : (

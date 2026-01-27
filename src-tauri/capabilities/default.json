@@ -10,6 +10,7 @@
     "core:window:allow-close",
     "core:window:allow-set-always-on-top",
     "core:event:allow-listen",
-    "opener:default"
+    "opener:default",
+    "dialog:default"
   ]
 }

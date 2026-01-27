@@ -4,9 +4,12 @@ A lightweight, local time tracking application built with Tauri, React, and Type
 
 ## Download
 
-[![Download for macOS](https://img.shields.io/badge/Download-macOS%20(.dmg)-blue?style=for-the-badge&logo=apple)](https://github.com/devopsdina/local-customer-time-tracker/releases/latest/download/Time-Tracker.dmg)
-[![Download for Windows](https://img.shields.io/badge/Download-Windows%20(.msi)-blue?style=for-the-badge&logo=windows)](https://github.com/devopsdina/local-customer-time-tracker/releases/latest/download/Time-Tracker.msi)
-[![Download for Linux](https://img.shields.io/badge/Download-Linux%20(.deb)-blue?style=for-the-badge&logo=linux)](https://github.com/devopsdina/local-customer-time-tracker/releases/latest/download/Time-Tracker.deb)
+[![Download Latest Release](https://img.shields.io/badge/Download-Latest%20Release-blue?style=for-the-badge&logo=github)](https://github.com/devopsdina/local-customer-time-tracker/releases/latest)
+
+**Available formats:**
+- **macOS**: `.dmg` (Apple Silicon & Intel)
+- **Windows**: `.exe` or `.msi`
+- **Linux**: `.deb` or `.AppImage`
 
 
 

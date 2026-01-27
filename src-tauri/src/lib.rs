@@ -249,10 +249,17 @@ fn get_data_path() -> Result<String, String> {
     Ok(data_dir.to_string_lossy().to_string())
 }
 
+#[tauri::command]
+fn export_csv(file_path: String, content: String) -> Result<(), String> {
+    fs::write(&file_path, content).map_err(|e| e.to_string())?;
+    Ok(())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_dialog::init())
         .invoke_handler(tauri::generate_handler![
             get_customers,
             save_customer,
@@ -261,7 +268,8 @@ pub fn run() {
             save_time_session,
             get_settings,
             save_settings,
-            get_data_path
+            get_data_path,
+            export_csv
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

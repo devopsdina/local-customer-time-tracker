@@ -55,7 +55,26 @@ jobs:
         with:
           tagName: v__VERSION__
           releaseName: 'Time Tracker v__VERSION__'
-          releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: true
+          releaseBody: |
+            ## What's New
+            
+            See the [README](https://github.com/devopsdina/local-customer-time-tracker#readme) for full documentation.
+            
+            ## Downloads
+            
+            | Platform | File |
+            |----------|------|
+            | macOS (Apple Silicon) | `Time.Tracker_*_aarch64.dmg` |
+            | macOS (Intel) | `Time.Tracker_*_x64.dmg` |
+            | Windows | `Time.Tracker_*_x64-setup.exe` or `.msi` |
+            | Linux (Debian/Ubuntu) | `Time.Tracker_*_amd64.deb` |
+            | Linux (Other) | `Time.Tracker_*_amd64.AppImage` |
+            
+            ## Installation
+            
+            - **macOS**: Download the `.dmg`, open it, and drag Time Tracker to Applications
+            - **Windows**: Download and run the `.exe` or `.msi` installer
+            - **Linux**: Download the `.deb` and install with `sudo dpkg -i <file>.deb`, or use the `.AppImage`
+          releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}
