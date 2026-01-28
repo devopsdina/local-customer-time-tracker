@@ -26,11 +26,14 @@ function App() {
     const unlisten = appWindow.onCloseRequested(async (event) => {
       const { status, stopTimer } = useTimerStore.getState();
       
+      // If timer is running, save it first
       if (status !== "idle") {
         event.preventDefault();
         await stopTimer();
-        await appWindow.close();
       }
+      
+      // Always close the window
+      await appWindow.destroy();
     });
 
     return () => {
