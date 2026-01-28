@@ -1,17 +1,54 @@
 # Time Tracker
 
+[![Build Status](https://img.shields.io/github/actions/workflow/status/devopsdina/local-customer-time-tracker/release.yml?style=flat-square&label=Build)](https://github.com/devopsdina/local-customer-time-tracker/actions)
+[![Latest Release](https://img.shields.io/github/v/release/devopsdina/local-customer-time-tracker?style=flat-square&label=Latest%20Version)](https://github.com/devopsdina/local-customer-time-tracker/releases/latest)
+[![License](https://img.shields.io/github/license/devopsdina/local-customer-time-tracker?style=flat-square)](LICENSE)
+
 A lightweight, local time tracking application built with Tauri, React, and TypeScript. Track time spent on customer engagements with a compact, always-on-top UI.
 
 ## Download
 
-[![Download Latest Release](https://img.shields.io/badge/Download-Latest%20Release-blue?style=for-the-badge&logo=github)](https://github.com/devopsdina/local-customer-time-tracker/releases/latest)
+| Platform | Download |
+|----------|----------|
+| **macOS (Apple Silicon)** M1/M2/M3 | [![Download](https://img.shields.io/badge/Download-aarch64.dmg-blue?style=flat-square&logo=apple)](https://github.com/devopsdina/local-customer-time-tracker/releases/latest) |
+| **macOS (Intel)** | [![Download](https://img.shields.io/badge/Download-x64.dmg-blue?style=flat-square&logo=apple)](https://github.com/devopsdina/local-customer-time-tracker/releases/latest) |
+| **Windows** | [![Download](https://img.shields.io/badge/Download-x64--setup.exe-blue?style=flat-square&logo=windows)](https://github.com/devopsdina/local-customer-time-tracker/releases/latest) |
+| **Linux (Debian/Ubuntu)** | [![Download](https://img.shields.io/badge/Download-amd64.deb-blue?style=flat-square&logo=linux)](https://github.com/devopsdina/local-customer-time-tracker/releases/latest) |
+| **Linux (Other)** | [![Download](https://img.shields.io/badge/Download-amd64.AppImage-blue?style=flat-square&logo=linux)](https://github.com/devopsdina/local-customer-time-tracker/releases/latest) |
 
-**Available formats:**
-- **macOS**: `.dmg` (Apple Silicon & Intel)
-- **Windows**: `.exe` or `.msi`
-- **Linux**: `.deb` or `.AppImage`
+## Installation
 
+### macOS
 
+Since the app is not signed with an Apple Developer certificate, macOS will block it by default. Follow these steps:
+
+1. **Download** the `.dmg` file for your Mac (Apple Silicon or Intel)
+2. **Open** the `.dmg` and drag Time Tracker to your **Applications** folder
+3. **Run the fix script** (do this BEFORE opening the app for the first time):
+
+```bash
+curl -sSL https://raw.githubusercontent.com/devopsdina/local-customer-time-tracker/main/fix-macos.sh | bash
+```
+
+Or manually run:
+```bash
+xattr -cr /Applications/Time\ Tracker.app
+```
+
+4. **Open** Time Tracker from your Applications folder
+
+### Windows
+
+Download and run the `.exe` installer. Windows may show a SmartScreen warning - click "More info" → "Run anyway".
+
+### Linux
+
+Download the `.deb` and install:
+```bash
+sudo dpkg -i Time.Tracker_*.deb
+```
+
+Or use the `.AppImage` (make executable first: `chmod +x *.AppImage`)
 
 ## Features
 

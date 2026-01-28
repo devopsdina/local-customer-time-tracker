@@ -72,9 +72,22 @@ jobs:
             
             ## Installation
             
-            - **macOS**: Download the `.dmg`, open it, and drag Time Tracker to Applications
-            - **Windows**: Download and run the `.exe` or `.msi` installer
-            - **Linux**: Download the `.deb` and install with `sudo dpkg -i <file>.deb`, or use the `.AppImage`
+            ### macOS (Important!)
+            
+            Since the app is unsigned, you must run a fix script after installing:
+            
+            1. Download the `.dmg` and drag Time Tracker to Applications
+            2. **Before opening**, run this in Terminal:
+            ```bash
+            curl -sSL https://raw.githubusercontent.com/devopsdina/local-customer-time-tracker/main/fix-macos.sh | bash
+            ```
+            3. Open Time Tracker from Applications
+            
+            ### Windows
+            Download and run the `.exe` installer. Click "More info" → "Run anyway" if SmartScreen appears.
+            
+            ### Linux
+            Download the `.deb` and install with `sudo dpkg -i <file>.deb`, or use the `.AppImage`
           releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}
