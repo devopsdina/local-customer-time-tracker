@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { getCurrentWindow } from "@tauri-apps/api/window";
-import { TitleBar } from "./components/layout/TitleBar";
 import { HomeScreen } from "./components/home/HomeScreen";
 import { SettingsScreen } from "./components/settings/SettingsScreen";
 import { ManageCustomersScreen } from "./components/customer/ManageCustomersScreen";
@@ -54,6 +53,18 @@ function App() {
     appWindow.setAlwaysOnTop(settings.alwaysOnTop);
   }, [settings.alwaysOnTop]);
 
+  // Update window title based on timer status
+  useEffect(() => {
+    const appWindow = getCurrentWindow();
+    if (status === "running") {
+      appWindow.setTitle("● Recording - Time Tracker");
+    } else if (status === "paused") {
+      appWindow.setTitle("⏸ Paused - Time Tracker");
+    } else {
+      appWindow.setTitle("Time Tracker");
+    }
+  }, [status]);
+
   // Timer tick - runs at App level to ensure it continues across screens
   useEffect(() => {
     if (status !== "running") return;
@@ -99,11 +110,8 @@ function App() {
   };
 
   return (
-    <div className="h-screen w-screen p-1 border-0 outline-none">
-      <div className="window-frame window-content h-full flex flex-col gradient-bg rounded-xl overflow-hidden border-0 outline-none">
-        {/* Title Bar - Always visible */}
-        <TitleBar />
-
+    <div className="h-screen w-screen border-0 outline-none">
+      <div className="window-content h-full flex flex-col gradient-bg overflow-hidden border-0 outline-none">
         {/* Screen Content */}
         {renderScreen()}
       </div>
