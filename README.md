@@ -68,6 +68,10 @@ Since the app is not signed with an Apple Developer certificate, macOS will bloc
 - Always-on-top window option
 - Auto-save on app close
 
+## Demo
+
+![Add Customer Example](./assets/add-customer-example.gif)
+
 ## Development
 
 ### Prerequisites
